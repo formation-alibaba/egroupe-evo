@@ -7,47 +7,50 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-  body {margin:0; font-family: 'Inter', sans-serif; color:#000; background:#fff;}
+  body {margin:0; font-family: 'Inter', sans-serif; color:#000; background:#FFF5F0;}
   a {text-decoration:none;}
   .container{max-width:1000px;margin:0 auto;padding:0;}
 
   /* Slider Bannière */
-  .slider {position:relative; overflow:hidden; background:#FF6A00; color:#000; text-align:center; padding:60px 20px;}
-  .slider h1 {font-size:32px; font-weight:700; margin:0;}
+  .slider {position:relative; overflow:hidden; background:#FFC0CB; color:#000; text-align:center; padding:40px 20px; border-radius:20px; margin:20px;}
+  .slider h1 {font-size:28px; font-weight:700; margin:0;}
   .slide {position:absolute; width:100%; opacity:0; animation:slideAnim 12s infinite;}
   .slide:nth-child(1){animation-delay:0s;}
   .slide:nth-child(2){animation-delay:4s;}
   .slide:nth-child(3){animation-delay:8s;}
   @keyframes slideAnim {
-    0% {opacity:0; transform:translateY(30px);}
+    0% {opacity:0; transform:translateY(20px);}
     5% {opacity:1; transform:translateY(0);}
     30% {opacity:1; transform:translateY(0);}
-    35% {opacity:0; transform:translateY(-30px);}
+    35% {opacity:0; transform:translateY(-20px);}
     100% {opacity:0;}
   }
 
   /* Sections */
-  section {padding:40px 20px;}
-  .orange-bg {background:#FF6A00; padding:40px 20px; border-radius:12px; margin-bottom:20px;}
+  section {padding:40px 20px; background:#FFF5F0; margin-bottom:20px; border-radius:10px;}
+  .pink-bg {background:#FFC0CB; padding:40px 20px; border-radius:20px; margin-bottom:20px;}
   h2 {font-size:26px; font-weight:700; margin-bottom:16px; color:#000;}
   p {font-size:16px; line-height:1.5; margin-bottom:12px; color:#000;}
   ul {list-style:none; padding-left:0; margin:0;}
   li {margin-bottom:8px;}
-  
+
   /* Modules & Bonus */
-  .card {background:#fff; padding:20px; border-radius:10px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1);}
-  .card.orange {background:#FF6A00; color:#000;}
+  .card {background:#FFF5F0; padding:20px; border-radius:15px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+  .card.pink {background:#FFC0CB; color:#000;}
 
   /* Bouton WhatsApp */
   .btn {display:inline-block; background:#25D366; color:#fff; font-weight:700; padding:14px 20px; border-radius:25px; margin:8px 0; text-align:center; cursor:pointer; transition:0.3s;}
   .btn:hover {background:#1da851;}
 
+  /* Texte encouragement */
+  .encouragement {font-size:16px; margin-top:10px; margin-bottom:20px; text-align:center; color:#000;}
+
   /* Footer */
-  footer {background:#FF6A00; padding:20px; text-align:center; color:#000; border-radius:12px; margin-top:20px;}
+  footer {background:#FFC0CB; padding:20px; text-align:center; color:#000; border-radius:20px; margin-top:20px;}
   
   /* Responsive */
   @media(max-width:768px){
-    .slider h1{font-size:24px;}
+    .slider h1{font-size:22px;}
     h2{font-size:22px;}
   }
 </style>
@@ -64,7 +67,7 @@
   </div>
 
   <!-- Présentation -->
-  <section>
+  <section class="pink-bg">
     <h2>Pourquoi suivre cette formation ?</h2>
     <p>Transforme ton temps et ton budget limité en un business rentable depuis chez toi. Apprends à importer tes produits directement depuis la Chine, éviter les arnaques, négocier comme un pro et multiplier ton bénéfice.</p>
     <p>Que tu sois débutant ou commerçant, cette formation 100% pratique te donnera toutes les clés pour réussir.</p>
@@ -74,9 +77,9 @@
   </section>
 
   <!-- Modules & Déroulé -->
-  <section class="orange-bg">
+  <section class="pink-bg">
     <h2>Modules de la formation</h2>
-    <div class="card orange">
+    <div class="card">
       <h3>Jour 1 — 21 novembre</h3>
       <ul>
         <li>✅ Comment trouver des produits de qualité sur Alibaba</li>
@@ -84,7 +87,7 @@
         <li>✅ Comment négocier les meilleurs prix avec les fournisseurs</li>
       </ul>
     </div>
-    <div class="card orange">
+    <div class="card">
       <h3>Jour 2 — 22 novembre</h3>
       <ul>
         <li>✅ Comment importer ta commande depuis la Chine au meilleur coût</li>
@@ -104,9 +107,10 @@
 
   <!-- Contact WhatsApp -->
   <section>
-    <h2>Contactez-nous</h2>
+    <h2>Inscription à la formation</h2>
     <p>Pour vous inscrire ou prendre rendez-vous, écrivez directement via WhatsApp :</p>
-    <a class="btn" href="https://wa.me/22954666515" target="_blank">WhatsApp</a>
+    <a class="btn" href="https://wa.me/22954666515" target="_blank">Je veux m'inscrire pour la formation</a>
+    <p class="encouragement">Ne ratez pas cette opportunité unique pour apprendre à importer vos produits depuis la Chine et lancer votre business dès maintenant !</p>
   </section>
 
   <!-- Footer -->
