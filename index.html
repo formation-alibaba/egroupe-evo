@@ -18,36 +18,35 @@ body {margin:0; font-family:'Inter',sans-serif; color:#000; background:#FFF5F0;}
 .container{max-width:1000px;margin:0 auto;padding:0;}
 a{text-decoration:none;}
 
-/* Slider vertical */
+/* Slider vertical avec fade-in */
 .slider-container {
   height:100px;
   overflow:hidden;
   background:#FFC0CB;
   border-radius:20px;
   margin:20px auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
   position:relative;
 }
 .slider {
+  position:absolute;
+  width:100%;
   display:flex;
   flex-direction:column;
-  position:absolute;
-  animation:scrollUp 10s linear infinite;
-  width:100%;
-  text-align:center;
+  align-items:center;
+  justify-content:center;
 }
 .slider span {
   font-size:24px;
   font-weight:700;
   color:#000;
   padding:5px 0;
-  white-space: nowrap;
+  opacity:0;
+  transform: translateY(20px);
+  transition: all 1s ease;
 }
-@keyframes scrollUp {
-  0% {top:100%;}
-  100% {top:-100%;}
+.slider span.active {
+  opacity:1;
+  transform: translateY(0);
 }
 
 /* Sections */
@@ -67,7 +66,7 @@ li {margin-bottom:8px;}
 
 /* Minuteur */
 #countdown {
-  font-size:66px; 
+  font-size:66px;
   font-weight:700;
   text-align:center;
   margin:20px auto;
@@ -76,7 +75,7 @@ li {margin-bottom:8px;}
   border-radius:15px;
   padding:20px 30px;
   display:inline-block;
-  background:#FFC0CB; /* fond rose chair */
+  background:#FFC0CB;
 }
 
 /* Avis / commentaires */
@@ -86,7 +85,8 @@ li {margin-bottom:8px;}
 .comment-form input, .comment-form textarea, .comment-form select {padding:8px; width:80%; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;}
 .comment-form button {padding:10px 20px; border-radius:25px; background:#FFC0CB; border:none; font-weight:700; cursor:pointer; color:#000;}
 .comment-list {max-width:800px; margin:20px auto;}
-.comment-item {background:#FFF5F0; padding:15px; margin-bottom:10px; border-radius:15px; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.comment-item {background:#FFF5F0; padding:15px; margin-bottom:10px; border-radius:15px; box-shadow:0 2px 8px rgba(0,0,0,0.1); opacity:0; transform:translateY(20px); transition: all 0.7s ease;}
+.comment-item.show {opacity:1; transform:translateY(0);}
 .comment-item span {font-weight:700;}
 .comment-stars {color:gold;}
 
@@ -98,7 +98,7 @@ footer {background:#FFC0CB; padding:20px; text-align:center; color:#000; border-
 
 /* Responsive */
 @media(max-width:768px){
-  .slider span{font-size:18px; white-space: normal;}
+  .slider span{font-size:18px;}
   h2{font-size:22px;}
 }
 </style>
@@ -109,7 +109,7 @@ footer {background:#FFC0CB; padding:20px; text-align:center; color:#000; border-
   <!-- Slider vertical -->
   <div class="slider-container">
     <div class="slider">
-      <span>Apprends à importer directement depuis la Chine 🇨🇳</span>
+      <span class="active">Apprends à importer directement depuis la Chine 🇨🇳</span>
       <span>Évite les arnaques et négocie les meilleurs prix</span>
       <span>Multiplie ton bénéfice et démarre ton business dès aujourd’hui</span>
     </div>
@@ -192,7 +192,6 @@ footer {background:#FFC0CB; padding:20px; text-align:center; color:#000; border-
   <footer>
     2025 | <a href="mailto:egroupe.evo@gmail.com" style="color:#000;">egroupe.evo@gmail.com</a> | Formation Alibaba
   </footer>
-
 </div>
 
 <script>
@@ -210,6 +209,15 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
+// Slider vertical avec fade-in
+const slides = document.querySelectorAll('.slider span');
+let current = 0;
+setInterval(()=>{
+  slides.forEach((s,i)=>s.classList.remove('active'));
+  slides[current].classList.add('active');
+  current = (current+1) % slides.length;
+},3000);
+
 // Minuteur
 const countdownDate = new Date("Nov 21, 2025 19:00:00").getTime();
 const countdown = document.getElementById("countdown");
@@ -223,7 +231,7 @@ setInterval(function(){
   countdown.innerHTML = days + "j " + hours + "h " + minutes + "m " + seconds + "s ";
 },1000);
 
-// Firebase commentaires
+// Firebase commentaires avec effet fade-in
 const commentList = document.getElementById("commentList");
 function submitComment(){
   const name = document.getElementById("name").value;
@@ -245,9 +253,9 @@ db.ref('comments').on('value', snapshot=>{
     div.className="comment-item";
     div.innerHTML=<span>${data.name}</span> - <span class="comment-stars">${'⭐'.repeat(data.stars)}</span><br>${data.comment}<br><small>${data.timestamp}</small>;
     commentList.appendChild(div);
+    setTimeout(()=>{div.classList.add('show');},100); // fade-in
   });
 });
 </script>
-
 </body>
 </html>
