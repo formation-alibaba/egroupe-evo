@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Formation Alibaba - TCHANHOUN S. A. Cédric</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- EmailJS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
 <style>
 body {margin:0; font-family:'Inter',sans-serif; color:#000; background:#FFF5F0;}
 .container{max-width:1000px;margin:0 auto;padding:0;}
@@ -56,13 +60,13 @@ li {margin-bottom:8px;}
 .btn {display:inline-block; background:#25D366; color:#fff; font-weight:700; padding:14px 20px; border-radius:25px; margin:8px; text-align:center; cursor:pointer; transition:0.3s;}
 .btn:hover {background:#1da851;}
 
-/* Compte à rebours dynamique */
+/* Minuteur */
 #countdown {
   font-size:66px;
   font-weight:700;
   text-align:center;
   margin:20px auto;
-  color:#000;
+  color:#FFC0CB; /* rose chair */
   border: 3px solid #FFC0CB;
   border-radius:15px;
   padding:20px 30px;
@@ -71,9 +75,10 @@ li {margin-bottom:8px;}
 }
 
 /* Formulaire contact */
-.contact-form {text-align:center; margin:40px 0;}
-.contact-form input, .contact-form textarea {padding:10px; width:80%; margin-bottom:10px; border-radius:8px; border:1px solid #ccc; font-size:16px;}
-.contact-form button {padding:14px 20px; border-radius:25px; background:#FFC0CB; border:none; font-weight:700; cursor:pointer; color:#000; font-size:16px;}
+.contact-form {max-width:500px; margin:0 auto; text-align:center;}
+.contact-form input, .contact-form textarea {width:80%; padding:10px; margin-bottom:12px; border-radius:8px; border:1px solid #ccc;}
+.contact-form button {background:#FFC0CB; color:#000; padding:12px 20px; border-radius:25px; border:none; font-weight:700; cursor:pointer; transition:0.3s;}
+.contact-form button:hover {background:#ff99b3;}
 
 /* Encouragement */
 .encouragement {font-size:16px; margin-top:20px; margin-bottom:20px; text-align:center; color:#000; font-weight:600;}
@@ -88,6 +93,7 @@ footer {background:#FFC0CB; padding:20px; text-align:center; color:#000; border-
 </style>
 </head>
 <body>
+
 <div class="container">
 
   <!-- Bannière verticale scroll -->
@@ -138,28 +144,22 @@ footer {background:#FFC0CB; padding:20px; text-align:center; color:#000; border-
     </div>
   </section>
 
-  <!-- WhatsApp -->
+  <!-- Compte à rebours -->
   <section style="text-align:center;">
-    <p><strong>Contacter nous pour vous inscrire ou pour prendre rendez-vous</strong></p>
-    <a class="btn" href="https://wa.me/22954666515?text=Je%20m'inscris%20pour%20la%20formation,%20comment%20ça%20se%20passe%20?" target="_blank">WhatsApp</a>
-  </section>
-
-  <!-- Compte à rebours dynamique -->
-  <section style="text-align:center; margin-top:20px;">
     <div id="countdown"></div>
   </section>
 
-  <!-- Formulaire contact -->
+  <!-- Formulaire de contact -->
   <section class="contact-form">
-    <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
-      <input type="text" name="nom" placeholder="Nom" required><br>
-      <input type="text" name="prenom" placeholder="Prénom" required><br>
-      <textarea name="commentaire" rows="4" placeholder="Votre commentaire" required></textarea><br>
-      <button type="submit">Envoyer</button>
-    </form>
+    <p>Donnez vos avis ou contactez-nous pour vous inscrire</p>
+    <input type="text" id="firstName" placeholder="Prénom" required>
+    <input type="text" id="lastName" placeholder="Nom" required>
+    <input type="text" id="phone" placeholder="Numéro" required>
+    <textarea id="message" rows="4" placeholder="Votre message..." required></textarea>
+    <button onclick="sendEmail()">Envoyer</button>
   </section>
 
-  <!-- Texte encouragement -->
+  <!-- Encouragement -->
   <section class="encouragement">
     Ne ratez pas cette opportunité unique ! Cette formation va transformer votre manière de faire du commerce en ligne et vous donner toutes les clés pour importer vos produits facilement depuis la Chine. Inscrivez-vous dès maintenant !
   </section>
@@ -175,27 +175,45 @@ footer {background:#FFC0CB; padding:20px; text-align:center; color:#000; border-
 // Compte à rebours dynamique
 const countdownDate = new Date("Nov 21, 2025 19:00:00").getTime();
 const countdown = document.getElementById("countdown");
-
-function updateCountdown() {
+setInterval(() => {
   const now = new Date().getTime();
   const distance = countdownDate - now;
+  const days = Math.floor(distance/(1000*60*60*24));
+  const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+  const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+  const seconds = Math.floor((distance%(1000*60))/1000);
+  countdown.innerHTML = ${days}j ${hours}h ${minutes}m ${seconds}s;
+}, 1000);
 
-  if(distance < 0){
-    countdown.innerHTML = "La formation a commencé !";
-    clearInterval(interval);
-    return;
+// EmailJS initialisation
+(function(){
+  emailjs.init("BodSLVHCXonRC8KF8"); // ta public key
+})();
+
+// Envoi du formulaire
+function sendEmail(){
+  const templateParams = {
+    firstName: document.getElementById("firstName").value,
+    lastName: document.getElementById("lastName").value,
+    phone: document.getElementById("phone").value,
+    message: document.getElementById("message").value
+  };
+
+  if(templateParams.firstName && templateParams.lastName && templateParams.phone && templateParams.message){
+    emailjs.send("service_5hc72cy","template_rzbg3i9",templateParams)
+    .then(() => {
+      alert("Votre message a été envoyé !");
+      document.getElementById("firstName").value="";
+      document.getElementById("lastName").value="";
+      document.getElementById("phone").value="";
+      document.getElementById("message").value="";
+    }, (err) => {
+      alert("Erreur lors de l'envoi : " + JSON.stringify(err));
+    });
+  } else {
+    alert("Veuillez remplir tous les champs !");
   }
-
-  const days = Math.floor(distance / (1000*60*60*24));
-  const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
-  const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
-  const seconds = Math.floor((distance % (1000*60)) / 1000);
-
-  countdown.innerHTML = days + "j " + hours + "h " + minutes + "m " + seconds + "s";
 }
-
-updateCountdown();
-const interval = setInterval(updateCountdown, 1000);
 </script>
 </body>
 </html>
