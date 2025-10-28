@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Formation Alibaba - TCHANHOUN S. A. Cédric</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 <style>
 body {margin:0; font-family:'Inter',sans-serif; color:#000; background:#FFF5F0;}
 .container{max-width:1000px;margin:0 auto;padding:0;}
@@ -59,7 +56,7 @@ li {margin-bottom:8px;}
 .btn {display:inline-block; background:#25D366; color:#fff; font-weight:700; padding:14px 20px; border-radius:25px; margin:8px; text-align:center; cursor:pointer; transition:0.3s;}
 .btn:hover {background:#1da851;}
 
-/* Minuteur */
+/* Compte à rebours dynamique */
 #countdown {
   font-size:66px;
   font-weight:700;
@@ -73,22 +70,17 @@ li {margin-bottom:8px;}
   background:#FFF5F0;
 }
 
-/* Avis / commentaires */
-#commentSection {margin-top:20px;}
-.comment-form {text-align:center; margin-bottom:20px;}
-.comment-form p {font-weight:600; margin-bottom:10px;}
-.comment-form input, .comment-form textarea, .comment-form select {padding:8px; width:80%; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;}
-.comment-form button {padding:10px 20px; border-radius:25px; background:#FFC0CB; border:none; font-weight:700; cursor:pointer; color:#000;}
-.comment-list {max-width:800px; margin:20px auto;}
-.comment-item {background:#FFF5F0; padding:15px; margin-bottom:10px; border-radius:15px; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-.comment-item span {font-weight:700;}
-.comment-stars {color:gold;}
+/* Formulaire contact */
+.contact-form {text-align:center; margin:40px 0;}
+.contact-form input, .contact-form textarea {padding:10px; width:80%; margin-bottom:10px; border-radius:8px; border:1px solid #ccc; font-size:16px;}
+.contact-form button {padding:14px 20px; border-radius:25px; background:#FFC0CB; border:none; font-weight:700; cursor:pointer; color:#000; font-size:16px;}
 
 /* Encouragement */
 .encouragement {font-size:16px; margin-top:20px; margin-bottom:20px; text-align:center; color:#000; font-weight:600;}
 
 /* Footer */
 footer {background:#FFC0CB; padding:20px; text-align:center; color:#000; border-radius:20px; margin-top:20px;}
+
 @media(max-width:768px){
   .slider span{font-size:18px;}
   h2{font-size:22px;}
@@ -112,7 +104,8 @@ footer {background:#FFC0CB; padding:20px; text-align:center; color:#000; border-
     <h2>Pourquoi suivre cette formation ?</h2>
     <p>Transforme ton temps et ton budget limité en un business rentable depuis chez toi. Apprends à importer tes produits directement depuis la Chine, éviter les arnaques, négocier comme un pro et multiplier ton bénéfice.</p>
     <p>Que tu sois débutant ou commerçant, cette formation 100% pratique te donnera toutes les clés pour réussir.</p>
-    <p><strong>Dates :</strong> 21, 22 & 23 novembre | <strong>Horaire :</strong> 19h – 21h (pause 20 min) | <strong>Formateur :</strong> TCHANHOUN S. A. Cédric</p>
+    <p><strong>Dates :</strong> 21, 22 & 23 novembre | <strong>Horaire :</strong> 19h – 21h (pause 20 min)</p>
+    <p><strong>Formateur :</strong> TCHANHOUN S. A. Cédric</p>
     <p><strong>Tarif :</strong> 22 500 F CFA</p>
   </section>
 
@@ -151,27 +144,19 @@ footer {background:#FFC0CB; padding:20px; text-align:center; color:#000; border-
     <a class="btn" href="https://wa.me/22954666515?text=Je%20m'inscris%20pour%20la%20formation,%20comment%20ça%20se%20passe%20?" target="_blank">WhatsApp</a>
   </section>
 
-  <!-- Minuteur -->
+  <!-- Compte à rebours dynamique -->
   <section style="text-align:center; margin-top:20px;">
     <div id="countdown"></div>
   </section>
 
-  <!-- Avis / commentaires -->
-  <section id="commentSection">
-    <p style="text-align:center; font-weight:600; margin-bottom:10px;">Laisser votre avis à propos de cette formation</p>
-    <div class="comment-form">
-      <input type="text" id="name" placeholder="Votre nom" required><br>
-      <select id="stars">
-        <option value="5">⭐⭐⭐⭐⭐</option>
-        <option value="4">⭐⭐⭐⭐</option>
-        <option value="3">⭐⭐⭐</option>
-        <option value="2">⭐⭐</option>
-        <option value="1">⭐</option>
-      </select><br>
-      <textarea id="comment" rows="3" placeholder="Votre avis..." required></textarea><br>
-      <button onclick="submitComment()">Envoyer</button>
-    </div>
-    <div class="comment-list" id="commentList"></div>
+  <!-- Formulaire contact -->
+  <section class="contact-form">
+    <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+      <input type="text" name="nom" placeholder="Nom" required><br>
+      <input type="text" name="prenom" placeholder="Prénom" required><br>
+      <textarea name="commentaire" rows="4" placeholder="Votre commentaire" required></textarea><br>
+      <button type="submit">Envoyer</button>
+    </form>
   </section>
 
   <!-- Texte encouragement -->
@@ -187,63 +172,30 @@ footer {background:#FFC0CB; padding:20px; text-align:center; color:#000; border-
 </div>
 
 <script>
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBGOXtt9L3BwLn0yl9GkyawhtBvkgYx4Kk",
-  authDomain: "formation-alibaba.firebaseapp.com",
-  databaseURL: "https://formation-alibaba-default-rtdb.firebaseio.com/",
-  projectId: "formation-alibaba",
-  storageBucket: "formation-alibaba.appspot.com",
-  messagingSenderId: "790153993859",
-  appId: "1:790153993859:web:40548d5021bbffc10505b6",
-  measurementId: "G-6VNMYPZKNX"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-// Minuteur
+// Compte à rebours dynamique
 const countdownDate = new Date("Nov 21, 2025 19:00:00").getTime();
 const countdown = document.getElementById("countdown");
-setInterval(function(){
+
+function updateCountdown() {
   const now = new Date().getTime();
   const distance = countdownDate - now;
-  const days = Math.floor(distance/(1000*60*60*24));
-  const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-  const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
-  const seconds = Math.floor((distance%(1000*60))/1000);
-  countdown.innerHTML = days + "j " + hours + "h " + minutes + "m " + seconds + "s ";
-},1000);
 
-// Firebase commentaires
-const commentList = document.getElementById("commentList");
-function submitComment(){
-  const name = document.getElementById("name").value.trim();
-  const stars = document.getElementById("stars").value;
-  const comment = document.getElementById("comment").value.trim();
-  const timestamp = new Date().toLocaleString();
-  if(name && comment){
-    const newComment = db.ref('comments').push();
-    newComment.set({name, stars, comment, timestamp})
-      .then(()=> {alert("Commentaire envoyé !");})
-      .catch(err=> {alert("Erreur: " + err.message);});
-    document.getElementById("name").value="";
-    document.getElementById("comment").value="";
-  } else {
-    alert("Veuillez remplir tous les champs");
+  if(distance < 0){
+    countdown.innerHTML = "La formation a commencé !";
+    clearInterval(interval);
+    return;
   }
+
+  const days = Math.floor(distance / (1000*60*60*24));
+  const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+  const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+  const seconds = Math.floor((distance % (1000*60)) / 1000);
+
+  countdown.innerHTML = days + "j " + hours + "h " + minutes + "m " + seconds + "s";
 }
 
-// Affichage en temps réel
-db.ref('comments').on('value', snapshot=>{
-  commentList.innerHTML="";
-  snapshot.forEach(child=>{
-    const data = child.val();
-    const div = document.createElement("div");
-    div.className="comment-item";
-    div.innerHTML=<span>${data.name}</span> - <span class="comment-stars">${'⭐'.repeat(data.stars)}</span><br>${data.comment}<br><small>${data.timestamp}</small>;
-    commentList.appendChild(div);
-  });
-});
+updateCountdown();
+const interval = setInterval(updateCountdown, 1000);
 </script>
 </body>
 </html>
