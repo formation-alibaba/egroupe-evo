@@ -5,11 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Formation Alibaba - TCHANHOUN S. A. Cédric</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<!-- Firebase (pour avis si besoin) -->
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
-<!-- EmailJS -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <style>
 body {margin:0; font-family:'Inter',sans-serif; color:#000; background:#FFF5F0;}
 .container{max-width:1000px;margin:0 auto;padding:0;}
@@ -57,12 +52,7 @@ li {margin-bottom:8px;}
 /* Modules & Bonus */
 .card {background:#FFF; padding:20px; border-radius:15px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1);}
 
-/* Formulaire */
-input, select, textarea {padding:10px; width:80%; margin-bottom:10px; border-radius:8px; border:1px solid #ccc; font-size:16px;}
-button {padding:12px 25px; border-radius:25px; background:#FFC0CB; border:none; font-weight:700; cursor:pointer; color:#000; font-size:16px; transition:0.3s;}
-button:hover {background:#FFB6B6;}
-
-/* WhatsApp bouton */
+/* Boutons */
 .btn {display:inline-block; background:#25D366; color:#fff; font-weight:700; padding:14px 20px; border-radius:25px; margin:8px; text-align:center; cursor:pointer; transition:0.3s;}
 .btn:hover {background:#1da851;}
 
@@ -148,22 +138,12 @@ footer {background:#FFC0CB; padding:20px; text-align:center; color:#000; border-
     <div id="countdown"></div>
   </section>
 
-  <!-- Formulaire contact -->
+  <!-- Boutons contact -->
   <section style="text-align:center; margin-top:20px;">
-    <p style="font-weight:600; margin-bottom:10px;">Donnez vos avis par rapport à cette formation</p>
-    <form id="contactForm">
-      <input type="text" id="prenom" placeholder="Prénom" required><br>
-      <input type="text" id="nom" placeholder="Nom" required><br>
-      <input type="text" id="numero" placeholder="Numéro" required><br>
-      <textarea id="message" rows="4" placeholder="Votre message..." required></textarea><br>
-      <button type="submit">Envoyer</button>
-    </form>
-  </section>
-
-  <!-- WhatsApp -->
-  <section style="text-align:center; margin-top:20px;">
-    <p style="font-weight:600; margin-bottom:10px;">Cliquez ici et inscrivez‑vous ou prenez un rendez‑vous</p>
+    <p style="font-weight:600; margin-bottom:10px;">Contactez-nous pour vous inscrire ou prendre rendez-vous</p>
     <a class="btn" href="https://wa.me/22954666515?text=Je%20m'inscris%20pour%20la%20formation" target="_blank">WhatsApp</a>
+    <a class="btn" href="mailto:egroupe.evo@gmail.com" target="_blank">Mail</a>
+    <a class="btn" href="tel:+229015466515">Téléphone</a>
   </section>
 
   <!-- Encouragement -->
@@ -191,32 +171,7 @@ setInterval(function(){
   const seconds = Math.floor((distance%(1000*60))/1000);
   countdown.innerHTML = days + "j " + hours + "h " + minutes + "m " + seconds + "s";
 },1000);
-
-// EmailJS configuration
-(function(){
-   emailjs.init("BodSLVHCXonRC8KF8"); // public key
-})();
-
-// Formulaire envoi email
-document.getElementById('contactForm').addEventListener('submit', function(event){
-  event.preventDefault();
-  const prenom = document.getElementById('prenom').value;
-  const nom = document.getElementById('nom').value;
-  const numero = document.getElementById('numero').value;
-  const message = document.getElementById('message').value;
-
-  emailjs.send("service_5hc72cy","template_rzbg3i9",{
-    prenom: prenom,
-    nom: nom,
-    numero: numero,
-    message: message
-  }).then(function(response){
-    alert("Message envoyé avec succès !");
-    document.getElementById('contactForm').reset();
-  }, function(error){
-    alert("Erreur lors de l'envoi du message. Réessayez.");
-  });
-});
 </script>
+
 </body>
 </html>
