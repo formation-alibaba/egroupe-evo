@@ -1,44 +1,41 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Formation Alibaba — Formation Alibaba | Egroupe Evo</title>
-
-<!-- FAVICON (SVG data URI) -->
-<link rel="icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect rx="12" ry="12" width="100%" height="100%" fill="%23FFC0CB"/><text x="50%" y="54%" font-size="32" font-family="Inter,Arial" font-weight="700" text-anchor="middle" fill="%23DAA520">FA</text></svg>'>
+<title>Formation Alibaba - TCHANHOUN S. A. Cédric</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-<!-- Firebase compat -->
+<!-- Firebase compat (realtime DB) -->
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
 <style>
   :root{
-    --pink:#FFC0CB;     /* rose chair */
-    --milk:#FFF5F0;     /* blanc de lait */
-    --black:#000;
-    --whats:#25D366;
+    --pink: #FFC0CB;   /* rose chair */
+    --milk: #FFF5F0;   /* blanc de lait */
+    --black: #000000;
+    --whats: #25D366;
   }
+
   *{box-sizing:border-box}
   body{margin:0;font-family:"Inter",system-ui,Arial,sans-serif;background:var(--milk);color:var(--black);-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
-  .site{max-width:1000px;margin:0 auto;padding:0 16px 60px;}
+  .container{max-width:1000px;margin:0 auto;padding:16px;}
 
-  /* Top menu (fixed) */
-  header.site-header{position:fixed;top:0;left:0;right:0;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.06);z-index:80}
+  /* Header / nav */
+  header{position:fixed;left:0;right:0;top:0;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.06);z-index:90}
   .nav{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 16px}
   .brand{display:flex;gap:12px;align-items:center}
-  .brand .logo{width:40px;height:40px;border-radius:10px;background:var(--pink);display:flex;align-items:center;justify-content:center;font-weight:700;color:#DAA520}
+  .logo{width:44px;height:44px;border-radius:10px;background:var(--pink);display:flex;align-items:center;justify-content:center;font-weight:800;color:#DAA520}
   nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
   nav a{padding:8px 10px;border-radius:8px;font-weight:600;color:var(--black)}
-  nav a:hover{background:rgba(0,0,0,0.05)}
+  nav a:hover{background:rgba(0,0,0,0.04)}
 
-  /* spacer for fixed header */
-  .top-spacer{height:64px}
+  .top-spacer{height:64px} /* space for fixed header */
 
-  /* Banner vertical scroll */
+  /* Banner vertical scroll (container looks like earlier sample) */
   .slider-container{
     width:100%; max-width:940px; margin:18px auto; background:var(--pink); border-radius:18px; overflow:hidden;
     height:100px; display:flex;align-items:center;justify-content:center; position:relative;
@@ -47,66 +44,66 @@
     position:absolute; display:flex; flex-direction:column; align-items:center; width:100%;
     animation:scrollUp 9s linear infinite;
   }
-  .slider span{font-size:22px;font-weight:700;color:var(--black);padding:6px 0;text-align:center;text-shadow:0 1px 2px rgba(0,0,0,0.15)}
+  .slider span{font-size:22px;font-weight:700;color:var(--black);padding:6px 0;text-align:center;text-shadow:0 1px 2px rgba(0,0,0,0.08)}
   @keyframes scrollUp{
     0%{transform:translateY(100%)}
     100%{transform:translateY(-100%)}
   }
 
-  /* sections */
-  section{max-width:940px;margin:18px auto;background:var(--milk);padding:26px;border-radius:12px;box-shadow:0 6px 18px rgba(10,20,30,0.03)}
-  .pink-area{background:var(--pink);border-radius:16px;padding:26px;color:var(--black);box-shadow:inset 0 1px 0 rgba(0,0,0,0.02)}
-  h1,h2{margin:0 0 12px 0}
-  h1{font-size:20px}
-  h2{font-size:22px}
+  /* Sections styling - all backgrounds are white milk, headings black */
+  section {max-width:940px;margin:18px auto;background:var(--milk);padding:22px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.03)}
+  .pink-area{background:var(--pink);border-radius:12px;padding:22px;color:var(--black);box-shadow:inset 0 1px 0 rgba(0,0,0,0.02)}
+  h1,h2,h3{color:var(--black);margin:0 0 10px 0}
+  p{color:var(--black);margin:0 0 10px 0;line-height:1.45}
 
-  /* modules */
-  .modules .day{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 6px 16px rgba(10,20,30,0.04)}
-  .modules ul{padding-left:14px;margin:8px 0 0}
-  .modules li{margin:8px 0}
+  /* modules day cards white milk */
+  .modules .day{background:var(--milk);border-radius:10px;padding:14px;margin-bottom:12px;box-shadow:0 6px 16px rgba(0,0,0,0.04)}
+  .modules ul{padding-left:14px;margin:6px 0 0}
+  .modules li{margin:8px 0;color:var(--black)}
 
-  /* WhatsApp CTA */
+  /* CTA WhatsApp */
   .cta{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
-  .cta p{font-weight:700}
+  .cta p{font-weight:800;color:var(--black)}
   .whatsapp-btn{background:var(--whats);color:#fff;padding:12px 26px;border-radius:28px;font-weight:800;display:inline-block;box-shadow:0 8px 24px rgba(37,211,102,0.12)}
-  .whatsapp-btn:hover{transform:translateY(-2px)}
+  .whatsapp-btn:hover{transform:translateY(-2px);transition:all .18s ease}
 
-  /* countdown */
-  .count-wrap{text-align:center;margin-top:10px}
+  /* Countdown styling (3x larger) */
+  .count-wrap{text-align:center;margin-top:18px}
   #countdown{
     display:inline-block;
     background:var(--milk);
-    border-radius:18px;
-    padding:28px 40px;
-    border:4px solid var(--pink);
-    color:var(--black);
+    border-radius:16px;
+    padding:26px 36px;
+    border:4px solid var(--pink);   /* contour rose chair */
+    color:var(--black);             /* texte en noir */
     font-weight:800;
     font-size:66px; /* 3x bigger */
     line-height:1;
     box-shadow:0 10px 30px rgba(0,0,0,0.05);
   }
-  .count-sub{font-size:14px;margin-top:6px;color:var(--black);font-weight:600}
+  .count-sub{font-size:14px;margin-top:8px;color:var(--black);font-weight:700}
 
-  /* reviews */
-  .reviews{max-width:900px;margin:18px auto;padding:20px;border-radius:12px;background:var(--milk);box-shadow:0 6px 18px rgba(0,0,0,0.03)}
-  .reviews .title{font-weight:800;margin-bottom:10px}
+  /* Reviews */
+  .reviews{max-width:900px;margin:18px auto;padding:18px;border-radius:12px;background:var(--milk);box-shadow:0 6px 18px rgba(0,0,0,0.03)}
+  .reviews .title{font-weight:800;margin-bottom:10px;color:var(--black)}
   .review-form{display:flex;flex-direction:column;gap:8px;align-items:center}
-  .review-form input,.review-form textarea,.review-form select{width:86%;padding:10px;border-radius:10px;border:1px solid #ddd;background:#fff}
-  .review-form button{padding:10px 18px;border-radius:24px;border:none;background:var(--pink);color:#000;font-weight:800;cursor:pointer}
+  .review-form p{font-weight:700;color:var(--black);margin:6px 0}
+  .review-form input,.review-form textarea,.review-form select{width:86%;padding:10px;border-radius:10px;border:1px solid #ddd;background:#fff;color:var(--black)}
+  .review-form button{padding:10px 18px;border-radius:24px;border:none;background:var(--pink);color:var(--black);font-weight:800;cursor:pointer}
   .review-list{margin-top:18px;display:flex;flex-direction:column;gap:12px}
   .review-item{background:#fff;padding:12px;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.04)}
   .review-meta{font-weight:700;font-size:14px;color:#222;margin-bottom:6px}
   .review-stars{color:gold;margin-right:6px}
 
-  /* footer */
+  /* Footer */
   footer{max-width:1000px;margin:28px auto;padding:18px;text-align:center;border-radius:12px;background:var(--pink);color:var(--black);font-weight:700}
 
-  /* animations on scroll */
+  /* small animations on scroll */
   .hidden-on-load{opacity:0;transform:translateY(12px);transition:all .7s ease-out}
   .visible{opacity:1;transform:none}
 
   @media(max-width:720px){
-    #countdown{font-size:36px;padding:16px 18px}
+    #countdown{font-size:36px;padding:14px 18px}
     .slider-container{height:88px}
     .slider span{font-size:18px}
     nav ul{display:none}
@@ -115,12 +112,12 @@
 </head>
 <body>
 
-<!-- HEADER / NAV -->
-<header class="site-header">
-  <div class="nav">
-    <div class="brand">
-      <div class="logo" aria-hidden="true">FA</div>
-      <div>
+<!-- Header / nav fixed -->
+<header>
+  <div class="nav" role="navigation" aria-label="Navigation principale">
+    <div class="brand" aria-hidden="true">
+      <div class="logo">FA</div>
+      <div style="line-height:1">
         <div style="font-weight:800">Formation Alibaba</div>
         <div style="font-size:12px;color:#333">Egroupe Evo</div>
       </div>
@@ -139,11 +136,11 @@
 
 <div class="top-spacer"></div>
 
-<main class="site" id="home">
+<main class="container" id="home">
 
-  <!-- BANNER: vertical scroll (bottom -> top) -->
+  <!-- Banner vertical scroll (bottom -> top) -->
   <div class="slider-container" aria-hidden="false">
-    <div class="slider" role="presentation">
+    <div class="slider" role="presentation" aria-hidden="true">
       <span>Apprends à importer depuis la Chine 🇨🇳</span>
       <span>Évite les arnaques et trouve de vrais fournisseurs 🔥</span>
       <span>Deviens autonome et augmente tes bénéfices 💸</span>
@@ -151,16 +148,15 @@
   </div>
 
   <!-- Intro -->
-  <section class="pink-area hidden-on-load" id="intro">
+  <section id="intro" class="pink-area hidden-on-load">
     <h2>Pourquoi suivre cette formation ?</h2>
     <p>Transformez le temps que vous perdez en ligne en compétence rentable : importez directement depuis la Chine, négociez comme un pro, évitez les arnaques et augmentez vos marges. Une formation 100% pratique, conçue pour débutants et commerçants.</p>
     <p style="font-weight:800">Dates : 21, 22 & 23 novembre • Horaire : 19h – 21h (pause 20 min) • Tarif : 22 500 F CFA</p>
   </section>
 
-  <!-- MODULES -->
+  <!-- Modules -->
   <section id="modules" class="pink-area hidden-on-load">
     <h2>Modules & déroulé</h2>
-
     <div class="modules">
       <div class="day">
         <h3 style="margin:0 0 8px 0">Jour 1 — 21 novembre</h3>
@@ -191,33 +187,36 @@
     </div>
   </section>
 
-  <!-- CTA WhatsApp -->
+  <!-- CONTACT / WhatsApp CTA -->
   <section id="contact" class="hidden-on-load" style="text-align:center">
     <div class="cta">
-      <p style="font-size:16px">Contactez-nous pour vous inscrire ou pour prendre rendez-vous</p>
+      <p>Contactez-nous pour vous inscrire ou pour prendre rendez-vous</p>
       <a class="whatsapp-btn" href="https://wa.me/22954666515?text=Je%20m%27inscris%20pour%20la%20formation,%20comment%20ça%20se%20passe%20%3F" target="_blank" rel="noopener">WhatsApp</a>
     </div>
 
-    <div class="count-wrap">
-      <div id="countdown" aria-live="polite">...</div>
+    <!-- large countdown centered just after WhatsApp -->
+    <div class="count-wrap" aria-live="polite">
+      <div id="countdown">...</div>
       <div class="count-sub">Début de la formation</div>
     </div>
   </section>
 
   <!-- REVIEWS / AVIS -->
-  <section id="avis" class="reviews hidden-on-load">
-    <div class="title">Laisser votre avis à propos de cette formation</div>
+  <section id="avis" class="reviews hidden-on-load" aria-labelledby="avis-title">
+    <div class="title" id="avis-title">Laisser votre avis à propos de cette formation</div>
 
     <div class="review-form" aria-label="Formulaire d'avis">
-      <input id="reviewName" placeholder="Votre nom" />
-      <select id="reviewStars">
+      <!-- the small text is above the name field as requested -->
+      <p style="margin-top:6px">Laisser votre avis à propos de cette formation</p>
+      <input id="reviewName" placeholder="Votre nom" aria-label="Votre nom" />
+      <select id="reviewStars" aria-label="Nombre d'étoiles">
         <option value="5">⭐⭐⭐⭐⭐</option>
         <option value="4">⭐⭐⭐⭐</option>
         <option value="3">⭐⭐⭐</option>
         <option value="2">⭐⭐</option>
         <option value="1">⭐</option>
       </select>
-      <textarea id="reviewText" rows="3" placeholder="Votre avis..."></textarea>
+      <textarea id="reviewText" rows="3" placeholder="Votre avis..." aria-label="Votre avis"></textarea>
       <button id="sendReviewBtn">Envoyer mon avis</button>
     </div>
 
@@ -240,10 +239,9 @@
   © 2025 | Formation Alibaba | <a href="mailto:egroupe.evo@gmail.com" style="color:inherit;font-weight:800">egroupe.evo@gmail.com</a>
 </footer>
 
-<!-- SCRIPTS: Firebase config and site behavior -->
+<!-- SCRIPTS: Firebase + behavior -->
 <script>
-/* ---------- FIREBASE CONFIG ---------- */
-/* Provided config integrated (you gave these keys). databaseURL is included below. */
+/* --------- FIREBASE CONFIG (using the keys you provided) --------- */
 const firebaseConfig = {
   apiKey: "AIzaSyBGOXtt9L3BwLn0yl9GkyawhtBvkgYx4Kk",
   authDomain: "formation-alibaba.firebaseapp.com",
@@ -260,6 +258,7 @@ const db = firebase.database();
 /* ---------- SLIDER: pause on hover ---------- */
 (function(){
   const slider = document.querySelector('.slider');
+  if(!slider) return;
   slider.addEventListener('mouseenter', ()=> slider.style.animationPlayState='paused');
   slider.addEventListener('mouseleave', ()=> slider.style.animationPlayState='running');
 })();
@@ -315,6 +314,8 @@ const starsInput = document.getElementById('reviewStars');
 const textInput = document.getElementById('reviewText');
 const sendBtn = document.getElementById('sendReviewBtn');
 
+function escapeHtml(s){ if(!s) return ''; return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;'); }
+
 function renderReviews(snapshot){
   reviewsList.innerHTML = '';
   let total = 0, count = 0;
@@ -334,15 +335,10 @@ function renderReviews(snapshot){
   reviewsAvg.textContent = count? (total/count).toFixed(1) : "0.0";
 }
 
-// escape to avoid injection
-function escapeHtml(s){ if(!s) return ''; return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;'); }
-
-// listen for changes
 reviewsRef.on('value', snapshot=>{
   renderReviews(snapshot);
 });
 
-// submit review
 sendBtn.addEventListener('click', ()=>{
   const name = (nameInput.value||'').trim();
   const stars = parseInt(starsInput.value) || 5;
@@ -355,17 +351,16 @@ sendBtn.addEventListener('click', ()=>{
   node.set({ name, stars, comment, timestamp })
     .then(()=> {
       nameInput.value=''; textInput.value=''; starsInput.value='5';
-      // optional success visual
     })
     .catch(err=> console.error(err) );
 });
 
-/* ---------- Helper: ensure DB exists even if empty ---------- */
+/* ensure DB exists */
 reviewsRef.once('value').then(snap=>{
   if(!snap.exists()) reviewsRef.set(null);
 });
 
-/* ---------- Small accessibility / keyboard nav: focus send on Enter in textarea ---------- */
+/* keyboard shortcut: Ctrl+Enter to submit */
 textInput.addEventListener('keydown', (e)=> { if(e.key==='Enter' && (e.ctrlKey||e.metaKey)) sendBtn.click(); });
 
 </script>
