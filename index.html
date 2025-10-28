@@ -1,201 +1,373 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formation Alibaba - TCHANHOUN S. A. Cédric</title>
-<!-- Google Fonts -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Formation Alibaba — Formation Alibaba | Egroupe Evo</title>
+
+<!-- FAVICON (SVG data URI) -->
+<link rel="icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect rx="12" ry="12" width="100%" height="100%" fill="%23FFC0CB"/><text x="50%" y="54%" font-size="32" font-family="Inter,Arial" font-weight="700" text-anchor="middle" fill="%23DAA520">FA</text></svg>'>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<!-- Firebase -->
+
+<!-- Firebase compat -->
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
 <style>
-body {margin:0; font-family:'Inter',sans-serif; color:#000; background:#FFF5F0;}
-.container{max-width:1000px;margin:0 auto;padding:0;}
-a{text-decoration:none;}
+  :root{
+    --pink:#FFC0CB;     /* rose chair */
+    --milk:#FFF5F0;     /* blanc de lait */
+    --black:#000;
+    --whats:#25D366;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Inter",system-ui,Arial,sans-serif;background:var(--milk);color:var(--black);-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .site{max-width:1000px;margin:0 auto;padding:0 16px 60px;}
 
-/* Bannière fade-in/out */
-.slider {
-  background:#FFC0CB;
-  border-radius:20px;
-  overflow:hidden;
-  margin:20px auto;
-  padding:30px 20px;
-  width:90%;
-  height:70px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-}
-.slider span {
-  position:absolute;
-  font-size:24px;
-  font-weight:700;
-  color:#000;
-  text-align:center;
-  opacity:0;
-  transition: opacity 1s ease-in-out;
-  text-shadow:1px 1px 3px rgba(0,0,0,0.3);
-}
+  /* Top menu (fixed) */
+  header.site-header{position:fixed;top:0;left:0;right:0;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.06);z-index:80}
+  .nav{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 16px}
+  .brand{display:flex;gap:12px;align-items:center}
+  .brand .logo{width:40px;height:40px;border-radius:10px;background:var(--pink);display:flex;align-items:center;justify-content:center;font-weight:700;color:#DAA520}
+  nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
+  nav a{padding:8px 10px;border-radius:8px;font-weight:600;color:var(--black)}
+  nav a:hover{background:rgba(0,0,0,0.05)}
 
-/* Sections */
-section {padding:40px 20px; background:#FFF5F0; margin-bottom:20px; border-radius:10px;}
-.pink-bg {background:#FFC0CB; padding:40px 20px; border-radius:20px; margin-bottom:20px;}
-h2 {font-size:26px; font-weight:700; margin-bottom:16px; color:#000;}
-p {font-size:16px; line-height:1.5; margin-bottom:12px; color:#000;}
-ul {list-style:none; padding-left:0; margin:0;}
-li {margin-bottom:8px;}
+  /* spacer for fixed header */
+  .top-spacer{height:64px}
 
-/* Modules & Bonus */
-.card {background:#FFF5F0; padding:20px; border-radius:15px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+  /* Banner vertical scroll */
+  .slider-container{
+    width:100%; max-width:940px; margin:18px auto; background:var(--pink); border-radius:18px; overflow:hidden;
+    height:100px; display:flex;align-items:center;justify-content:center; position:relative;
+  }
+  .slider{
+    position:absolute; display:flex; flex-direction:column; align-items:center; width:100%;
+    animation:scrollUp 9s linear infinite;
+  }
+  .slider span{font-size:22px;font-weight:700;color:var(--black);padding:6px 0;text-align:center;text-shadow:0 1px 2px rgba(0,0,0,0.15)}
+  @keyframes scrollUp{
+    0%{transform:translateY(100%)}
+    100%{transform:translateY(-100%)}
+  }
 
-/* Bouton WhatsApp */
-.btn {display:inline-block; background:#25D366; color:#fff; font-weight:700; padding:14px 20px; border-radius:25px; margin:8px; text-align:center; cursor:pointer; transition:0.3s;}
-.btn:hover {background:#1da851;}
+  /* sections */
+  section{max-width:940px;margin:18px auto;background:var(--milk);padding:26px;border-radius:12px;box-shadow:0 6px 18px rgba(10,20,30,0.03)}
+  .pink-area{background:var(--pink);border-radius:16px;padding:26px;color:var(--black);box-shadow:inset 0 1px 0 rgba(0,0,0,0.02)}
+  h1,h2{margin:0 0 12px 0}
+  h1{font-size:20px}
+  h2{font-size:22px}
 
-/* Minuteur */
-#countdown {
-  font-size:22px;
-  font-weight:700;
-  text-align:center;
-  margin:20px auto;
-  color:#000; /* texte noir */
-  border: 3px solid #FFC0CB; /* contour rose chair */
-  border-radius:15px;
-  padding:10px 20px;
-  display:inline-block;
-  background:#FFF5F0;
-}
+  /* modules */
+  .modules .day{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 6px 16px rgba(10,20,30,0.04)}
+  .modules ul{padding-left:14px;margin:8px 0 0}
+  .modules li{margin:8px 0}
 
-/* Avis / commentaires */
-#commentSection {margin-top:20px;}
-.comment-form {text-align:center; margin-bottom:20px;}
-.comment-form input, .comment-form textarea {padding:8px; width:80%; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;}
-.comment-form button {padding:10px 20px; border-radius:25px; background:#FFC0CB; border:none; font-weight:700; cursor:pointer; color:#000;}
-.comment-list {max-width:800px; margin:20px auto;}
-.comment-item {background:#FFF5F0; padding:15px; margin-bottom:10px; border-radius:15px; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-.comment-item span {font-weight:700;}
-.comment-stars {color:gold;}
+  /* WhatsApp CTA */
+  .cta{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+  .cta p{font-weight:700}
+  .whatsapp-btn{background:var(--whats);color:#fff;padding:12px 26px;border-radius:28px;font-weight:800;display:inline-block;box-shadow:0 8px 24px rgba(37,211,102,0.12)}
+  .whatsapp-btn:hover{transform:translateY(-2px)}
 
-/* Encouragement */
-.encouragement {font-size:16px; margin-top:20px; margin-bottom:20px; text-align:center; color:#000; font-weight:600;}
+  /* countdown */
+  .count-wrap{text-align:center;margin-top:10px}
+  #countdown{
+    display:inline-block;
+    background:var(--milk);
+    border-radius:18px;
+    padding:28px 40px;
+    border:4px solid var(--pink);
+    color:var(--black);
+    font-weight:800;
+    font-size:66px; /* 3x bigger */
+    line-height:1;
+    box-shadow:0 10px 30px rgba(0,0,0,0.05);
+  }
+  .count-sub{font-size:14px;margin-top:6px;color:var(--black);font-weight:600}
 
-/* Footer */
-footer {background:#FFC0CB; padding:20px; text-align:center; color:#000; border-radius:20px; margin-top:20px;}
+  /* reviews */
+  .reviews{max-width:900px;margin:18px auto;padding:20px;border-radius:12px;background:var(--milk);box-shadow:0 6px 18px rgba(0,0,0,0.03)}
+  .reviews .title{font-weight:800;margin-bottom:10px}
+  .review-form{display:flex;flex-direction:column;gap:8px;align-items:center}
+  .review-form input,.review-form textarea,.review-form select{width:86%;padding:10px;border-radius:10px;border:1px solid #ddd;background:#fff}
+  .review-form button{padding:10px 18px;border-radius:24px;border:none;background:var(--pink);color:#000;font-weight:800;cursor:pointer}
+  .review-list{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+  .review-item{background:#fff;padding:12px;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.04)}
+  .review-meta{font-weight:700;font-size:14px;color:#222;margin-bottom:6px}
+  .review-stars{color:gold;margin-right:6px}
 
-/* Responsive */
-@media(max-width:768px){
-  .slider span{font-size:18px;}
-  h2{font-size:22px;}
-}
+  /* footer */
+  footer{max-width:1000px;margin:28px auto;padding:18px;text-align:center;border-radius:12px;background:var(--pink);color:var(--black);font-weight:700}
+
+  /* animations on scroll */
+  .hidden-on-load{opacity:0;transform:translateY(12px);transition:all .7s ease-out}
+  .visible{opacity:1;transform:none}
+
+  @media(max-width:720px){
+    #countdown{font-size:36px;padding:16px 18px}
+    .slider-container{height:88px}
+    .slider span{font-size:18px}
+    nav ul{display:none}
+  }
 </style>
 </head>
 <body>
 
-<div class="container">
+<!-- HEADER / NAV -->
+<header class="site-header">
+  <div class="nav">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">FA</div>
+      <div>
+        <div style="font-weight:800">Formation Alibaba</div>
+        <div style="font-size:12px;color:#333">Egroupe Evo</div>
+      </div>
+    </div>
 
-  <!-- Bannière fade-in/out -->
-  <div class="slider">
-    <span>Apprends à importer directement depuis la Chine 🇨🇳</span>
-    <span>Évite les arnaques et négocie les meilleurs prix</span>
-    <span>Multiplie ton bénéfice et démarre ton business dès aujourd’hui</span>
+    <nav>
+      <ul>
+        <li><a href="#home" data-scroll>Accueil</a></li>
+        <li><a href="#modules" data-scroll>Modules</a></li>
+        <li><a href="#avis" data-scroll>Avis</a></li>
+        <li><a href="#contact" data-scroll>Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="top-spacer"></div>
+
+<main class="site" id="home">
+
+  <!-- BANNER: vertical scroll (bottom -> top) -->
+  <div class="slider-container" aria-hidden="false">
+    <div class="slider" role="presentation">
+      <span>Apprends à importer depuis la Chine 🇨🇳</span>
+      <span>Évite les arnaques et trouve de vrais fournisseurs 🔥</span>
+      <span>Deviens autonome et augmente tes bénéfices 💸</span>
+    </div>
   </div>
 
-  <!-- Présentation -->
-  <section class="pink-bg">
+  <!-- Intro -->
+  <section class="pink-area hidden-on-load" id="intro">
     <h2>Pourquoi suivre cette formation ?</h2>
-    <p>Transforme ton temps et ton budget limité en un business rentable depuis chez toi. Apprends à importer tes produits directement depuis la Chine, éviter les arnaques, négocier comme un pro et multiplier ton bénéfice.</p>
-    <p>Que tu sois débutant ou commerçant, cette formation 100% pratique te donnera toutes les clés pour réussir.</p>
-    <p><strong>Dates :</strong> 21, 22 & 23 novembre | <strong>Horaire :</strong> 19h – 21h (pause 20 min)</p>
-    <p><strong>Tarif :</strong> 22 500 F CFA</p>
+    <p>Transformez le temps que vous perdez en ligne en compétence rentable : importez directement depuis la Chine, négociez comme un pro, évitez les arnaques et augmentez vos marges. Une formation 100% pratique, conçue pour débutants et commerçants.</p>
+    <p style="font-weight:800">Dates : 21, 22 & 23 novembre • Horaire : 19h – 21h (pause 20 min) • Tarif : 22 500 F CFA</p>
   </section>
 
-  <!-- Modules & Déroulé -->
-  <section class="pink-bg">
-    <h2>Modules de la formation</h2>
-    <div class="card">
-      <h3>Jour 1 — 21 novembre</h3>
-      <ul>
-        <li>✅ Comment trouver des produits de qualité sur Alibaba</li>
-        <li>✅ Comment éviter les pièges et arnaques</li>
-        <li>✅ Comment négocier les meilleurs prix avec les fournisseurs</li>
-      </ul>
+  <!-- MODULES -->
+  <section id="modules" class="pink-area hidden-on-load">
+    <h2>Modules & déroulé</h2>
+
+    <div class="modules">
+      <div class="day">
+        <h3 style="margin:0 0 8px 0">Jour 1 — 21 novembre</h3>
+        <ul>
+          <li>• Comment trouver des produits de qualité sur Alibaba</li>
+          <li>• Comment éviter les pièges et arnaques</li>
+          <li>• Comment négocier les meilleurs prix avec les fournisseurs</li>
+        </ul>
+      </div>
+
+      <div class="day">
+        <h3 style="margin:0 0 8px 0">Jour 2 — 22 novembre</h3>
+        <ul>
+          <li>• Comment importer ta commande depuis la Chine au meilleur coût</li>
+          <li>• Comment calculer le coût du transport avant l’achat</li>
+        </ul>
+      </div>
+
+      <div class="day">
+        <h3 style="margin:0 0 8px 0">Jour 3 — 23 novembre</h3>
+        <ul>
+          <li>• Contacts de transitaires fiables</li>
+          <li>• Assistance jusqu’au retrait de ton premier colis</li>
+          <li>• Astuces pour vendre plus grâce à TikTok & Facebook</li>
+          <li>• Attestation officielle</li>
+        </ul>
+      </div>
     </div>
-    <div class="card">
-      <h3>Jour 2 — 22 novembre</h3>
-      <ul>
-        <li>✅ Comment importer ta commande depuis la Chine au meilleur coût</li>
-        <li>✅ Comment calculer le coût du transport avant l’achat</li>
-      </ul>
+  </section>
+
+  <!-- CTA WhatsApp -->
+  <section id="contact" class="hidden-on-load" style="text-align:center">
+    <div class="cta">
+      <p style="font-size:16px">Contactez-nous pour vous inscrire ou pour prendre rendez-vous</p>
+      <a class="whatsapp-btn" href="https://wa.me/22954666515?text=Je%20m%27inscris%20pour%20la%20formation,%20comment%20ça%20se%20passe%20%3F" target="_blank" rel="noopener">WhatsApp</a>
     </div>
-    <div class="card">
-      <h3>Jour 3 — 23 novembre</h3>
-      <ul>
-        <li>✅ Bonus exclusifs : contacts de transitaires fiables</li>
-        <li>✅ Assistance jusqu’au retrait de ton 1er colis</li>
-        <li>✅ Astuces pour vendre plus grâce aux vidéos TikTok et Facebook</li>
-        <li>✅ Attestation officielle de formation</li>
-      </ul>
+
+    <div class="count-wrap">
+      <div id="countdown" aria-live="polite">...</div>
+      <div class="count-sub">Début de la formation</div>
     </div>
   </section>
 
-  <!-- WhatsApp -->
-  <section style="text-align:center;">
-    <p><strong>Contacter nous pour vous inscrire ou pour prendre rendez-vous</strong></p>
-    <a class="btn" href="https://wa.me/22954666515?text=Je%20m'inscris%20pour%20la%20formation,%20comment%20ça%20se%20passe%20?" target="_blank">WhatsApp</a>
-  </section>
+  <!-- REVIEWS / AVIS -->
+  <section id="avis" class="reviews hidden-on-load">
+    <div class="title">Laisser votre avis à propos de cette formation</div>
 
-  <!-- Minuteur -->
-  <section>
-    <div id="countdown"></div>
-  </section>
-
-  <!-- Avis / commentaires -->
-  <section id="commentSection">
-    <div class="comment-form">
-      <input type="text" id="name" placeholder="Votre nom" required><br>
-      <select id="stars">
+    <div class="review-form" aria-label="Formulaire d'avis">
+      <input id="reviewName" placeholder="Votre nom" />
+      <select id="reviewStars">
         <option value="5">⭐⭐⭐⭐⭐</option>
         <option value="4">⭐⭐⭐⭐</option>
         <option value="3">⭐⭐⭐</option>
         <option value="2">⭐⭐</option>
         <option value="1">⭐</option>
-      </select><br>
-      <textarea id="comment" rows="3" placeholder="Votre avis..." required></textarea><br>
-      <button onclick="submitComment()">Envoyer</button>
+      </select>
+      <textarea id="reviewText" rows="3" placeholder="Votre avis..."></textarea>
+      <button id="sendReviewBtn">Envoyer mon avis</button>
     </div>
-    <div class="comment-list" id="commentList"></div>
+
+    <div style="text-align:center;margin-top:12px;font-weight:700">
+      <span id="reviewsCount">0</span> avis • Note moyenne : <span id="reviewsAvg">0.0</span>/5
+    </div>
+
+    <div class="review-list" id="reviewsList" aria-live="polite"></div>
   </section>
 
-  <!-- Texte encouragement -->
-  <section class="encouragement">
-    Ne ratez pas cette opportunité unique ! Cette formation va transformer votre manière de faire du commerce en ligne et vous donner toutes les clés pour importer vos produits facilement depuis la Chine. Inscrivez-vous dès maintenant !
+  <!-- encouragement -->
+  <section class="hidden-on-load encouragement">
+    Ne ratez pas cette opportunité ! Cette formation pratique vous permettra d’importer en toute sérénité depuis la Chine et de lancer ou booster votre commerce. Réservez votre place maintenant — les places sont limitées.
   </section>
 
-  <!-- Footer -->
-  <footer>
-    2025 | <a href="mailto:egroupe.evo@gmail.com" style="color:#000;">egroupe.evo@gmail.com</a> | Formation Alibaba
-  </footer>
+</main>
 
-</div>
+<!-- FOOTER -->
+<footer>
+  © 2025 | Formation Alibaba | <a href="mailto:egroupe.evo@gmail.com" style="color:inherit;font-weight:800">egroupe.evo@gmail.com</a>
+</footer>
 
+<!-- SCRIPTS: Firebase config and site behavior -->
 <script>
-// Firebase configuration
+/* ---------- FIREBASE CONFIG ---------- */
+/* Provided config integrated (you gave these keys). databaseURL is included below. */
 const firebaseConfig = {
-  apiKey: "VOTRE_API_KEY",
-  authDomain: "VOTRE_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://VOTRE_PROJECT_ID.firebaseio.com",
-  projectId: "VOTRE_PROJECT_ID",
-  storageBucket: "VOTRE_PROJECT_ID.appspot.com",
-  messagingSenderId: "VOTRE_SENDER_ID",
-  appId: "VOTRE_APP_ID"
+  apiKey: "AIzaSyBGOXtt9L3BwLn0yl9GkyawhtBvkgYx4Kk",
+  authDomain: "formation-alibaba.firebaseapp.com",
+  databaseURL: "https://formation-alibaba-default-rtdb.firebaseio.com",
+  projectId: "formation-alibaba",
+  storageBucket: "formation-alibaba.firebasestorage.app",
+  messagingSenderId: "790153993859",
+  appId: "1:790153993859:web:40548d5021bbffc10505b6",
+  measurementId: "G-6VNMYPZKNX"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// Slider fade-in/out
-const slides = document.querySelectorAll('.slider span');
-let current = 0;
-function showSlide(index) {
-  slides
+/* ---------- SLIDER: pause on hover ---------- */
+(function(){
+  const slider = document.querySelector('.slider');
+  slider.addEventListener('mouseenter', ()=> slider.style.animationPlayState='paused');
+  slider.addEventListener('mouseleave', ()=> slider.style.animationPlayState='running');
+})();
+
+/* ---------- SMOOTH SCROLL NAV ---------- */
+document.querySelectorAll('a[data-scroll]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    e.preventDefault();
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+/* ---------- ANIMATIONS ON SCROLL ---------- */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting) en.target.classList.add('visible');
+  });
+},{threshold:0.12});
+document.querySelectorAll('.hidden-on-load').forEach(el=> io.observe(el));
+
+/* ---------- COUNTDOWN ---------- */
+(function(){
+  const countdownEl = document.getElementById('countdown');
+  // Target date: 21 Nov 2025 19:00 local
+  const target = new Date("Nov 21, 2025 19:00:00").getTime();
+  function tick(){
+    const now = Date.now();
+    const diff = target - now;
+    if(diff<=0){
+      countdownEl.textContent = "La formation a commencé";
+      return;
+    }
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    const m = Math.floor((diff%(1000*60*60))/(1000*60));
+    const s = Math.floor((diff%(1000*60))/1000);
+    countdownEl.textContent = ${d}j ${h}h ${m}m ${s}s;
+  }
+  tick();
+  setInterval(tick,1000);
+})();
+
+/* ---------- REVIEWS (Realtime with Firebase) ---------- */
+const reviewsRef = db.ref('comments'); // node: comments
+
+const reviewsList = document.getElementById('reviewsList');
+const reviewsCount = document.getElementById('reviewsCount');
+const reviewsAvg = document.getElementById('reviewsAvg');
+const nameInput = document.getElementById('reviewName');
+const starsInput = document.getElementById('reviewStars');
+const textInput = document.getElementById('reviewText');
+const sendBtn = document.getElementById('sendReviewBtn');
+
+function renderReviews(snapshot){
+  reviewsList.innerHTML = '';
+  let total = 0, count = 0;
+  snapshot.forEach(child=>{
+    const data = child.val();
+    count++;
+    total += Number(data.stars || 0);
+    const item = document.createElement('div');
+    item.className = 'review-item';
+    const stars = '★'.repeat(data.stars || 0) + '☆'.repeat(5 - (data.stars||0));
+    item.innerHTML = `<div class="review-meta">${escapeHtml(data.name)} • <span class="review-stars">${stars}</span></div>
+                      <div>${escapeHtml(data.comment)}</div>
+                      <div style="margin-top:8px;font-size:12px;color:#666">${escapeHtml(data.timestamp)}</div>`;
+    reviewsList.prepend(item); // newest first
+  });
+  reviewsCount.textContent = count;
+  reviewsAvg.textContent = count? (total/count).toFixed(1) : "0.0";
+}
+
+// escape to avoid injection
+function escapeHtml(s){ if(!s) return ''; return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;'); }
+
+// listen for changes
+reviewsRef.on('value', snapshot=>{
+  renderReviews(snapshot);
+});
+
+// submit review
+sendBtn.addEventListener('click', ()=>{
+  const name = (nameInput.value||'').trim();
+  const stars = parseInt(starsInput.value) || 5;
+  const comment = (textInput.value||'').trim();
+  if(!name){ alert('Veuillez saisir votre nom'); nameInput.focus(); return; }
+  if(!comment){ alert('Veuillez écrire votre avis'); textInput.focus(); return; }
+  const now = new Date();
+  const timestamp = now.toLocaleString();
+  const node = reviewsRef.push();
+  node.set({ name, stars, comment, timestamp })
+    .then(()=> {
+      nameInput.value=''; textInput.value=''; starsInput.value='5';
+      // optional success visual
+    })
+    .catch(err=> console.error(err) );
+});
+
+/* ---------- Helper: ensure DB exists even if empty ---------- */
+reviewsRef.once('value').then(snap=>{
+  if(!snap.exists()) reviewsRef.set(null);
+});
+
+/* ---------- Small accessibility / keyboard nav: focus send on Enter in textarea ---------- */
+textInput.addEventListener('keydown', (e)=> { if(e.key==='Enter' && (e.ctrlKey||e.metaKey)) sendBtn.click(); });
+
+</script>
+</body>
+</html>
