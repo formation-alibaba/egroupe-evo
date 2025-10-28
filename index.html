@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Formation Alibaba - TCHANHOUN S. A. Cédric</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
 body {margin:0; font-family:'Inter',sans-serif; color:#000; background:#FFF5F0;}
 .container{max-width:1000px;margin:0 auto;padding:0;}
@@ -52,10 +53,6 @@ li {margin-bottom:8px;}
 /* Modules & Bonus */
 .card {background:#FFF; padding:20px; border-radius:15px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1);}
 
-/* Boutons */
-.btn {display:inline-block; background:#25D366; color:#fff; font-weight:700; padding:14px 20px; border-radius:25px; margin:8px; text-align:center; cursor:pointer; transition:0.3s;}
-.btn:hover {background:#1da851;}
-
 /* Compte à rebours */
 #countdown {
   font-size:66px;
@@ -71,11 +68,32 @@ li {margin-bottom:8px;}
   width:auto;
 }
 
+/* Boutons contact */
+.contact-btn {
+  display:inline-block;
+  padding:14px 25px;
+  border-radius:30px;
+  font-weight:700;
+  font-size:16px;
+  color:#fff;
+  text-decoration:none;
+  transition: all 0.3s ease;
+  box-shadow:0 4px 10px rgba(0,0,0,0.15);
+}
+.contact-btn:hover {
+  transform: translateY(-3px);
+  box-shadow:0 8px 15px rgba(0,0,0,0.25);
+}
+.contact-btn.whatsapp {background:#25D366;}
+.contact-btn.mail {background:#FF6B6B;}
+.contact-btn.phone {background:#4A90E2;}
+
 /* Encouragement */
 .encouragement {font-size:16px; margin-top:20px; margin-bottom:20px; text-align:center; color:#000; font-weight:600;}
 
 /* Footer */
 footer {background:#FFC0CB; padding:20px; text-align:center; color:#000; border-radius:20px; margin-top:20px;}
+
 @media(max-width:768px){
   .slider span{font-size:18px;}
   h2{font-size:22px;}
@@ -141,9 +159,11 @@ footer {background:#FFC0CB; padding:20px; text-align:center; color:#000; border-
   <!-- Boutons contact -->
   <section style="text-align:center; margin-top:20px;">
     <p style="font-weight:600; margin-bottom:10px;">Contactez-nous pour vous inscrire ou prendre rendez-vous</p>
-    <a class="btn" href="https://wa.me/22954666515?text=Je%20m'inscris%20pour%20la%20formation" target="_blank">WhatsApp</a>
-    <a class="btn" href="mailto:egroupe.evo@gmail.com" target="_blank">Mail</a>
-    <a class="btn" href="tel:+229015466515">Téléphone</a>
+    <div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
+      <a href="https://wa.me/22954666515?text=Je%20m'inscris%20pour%20la%20formation" target="_blank" class="contact-btn whatsapp">WhatsApp</a>
+      <a href="mailto:egroupe.evo@gmail.com" target="_blank" class="contact-btn mail">Mail</a>
+      <a href="tel:+229015466515" class="contact-btn phone">Téléphone</a>
+    </div>
   </section>
 
   <!-- Encouragement -->
@@ -172,6 +192,5 @@ setInterval(function(){
   countdown.innerHTML = days + "j " + hours + "h " + minutes + "m " + seconds + "s";
 },1000);
 </script>
-
 </body>
 </html>
